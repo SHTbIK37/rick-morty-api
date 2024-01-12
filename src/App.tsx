@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import "./App.css";
+import { useQuery, gql } from "@apollo/client";
+import { Search } from "./components/Search";
+import { Box } from "@mui/material";
+import { ItemList } from "./components/ItemList";
+import { Party } from "./components/Party";
+const FEED_QUERRY = gql`
+  query {
+    characters(page: 2, filter: { name: "rick" }) {
+      info {
+        count
+      }
+      results {
+        name
+      }
+    }
+    location(id: 1) {
+      id
+    }
+    episodesByIds(ids: [1, 2]) {
+      id
+    }
+  }
+`;
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ width: "70%", m: "50px auto", maxWidth: "810px" }}>
+      <Search></Search>
+      <ItemList></ItemList>
+      <Party></Party>
+    </Box>
   );
 }
 
