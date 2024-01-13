@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { useQuery, gql } from "@apollo/client";
 import { Search } from "./components/Search";
@@ -7,27 +7,27 @@ import { ItemList } from "./components/ItemList";
 import { Party } from "./components/Party";
 const FEED_QUERRY = gql`
   query {
-    characters(page: 2, filter: { name: "rick" }) {
+    characters(filter: { name: "rick" }) {
       info {
         count
       }
       results {
+        id
         name
+        gender
+        image
       }
-    }
-    location(id: 1) {
-      id
-    }
-    episodesByIds(ids: [1, 2]) {
-      id
     }
   }
 `;
 function App() {
+  const { data } = useQuery(FEED_QUERRY);
+  const [bannedList, setBannedList] = useState({});
+  console.log(data);
   return (
     <Box sx={{ width: "70%", m: "50px auto", maxWidth: "810px" }}>
       <Search></Search>
-      <ItemList></ItemList>
+      {data && <ItemList items={data.characters.results}></ItemList>}
       <Party></Party>
     </Box>
   );
