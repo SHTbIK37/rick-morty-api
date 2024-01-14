@@ -3,7 +3,6 @@ import { Item } from "./Item";
 import React from "react";
 
 const ItemList: React.FC<any> = (props: any) => {
-  console.log(props);
   return (
     <Box
       sx={{

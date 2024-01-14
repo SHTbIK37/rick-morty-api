@@ -3,6 +3,25 @@ import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
 
 const Item: React.FC<any> = (props: any): null | any => {
+  console.log(props.id, props.item.name);
+  const setSlot = (name: string) => {
+    const slot = document.getElementById(name);
+    if (slot)
+      slot.innerHTML = `<img
+    width="120%"
+    height="100%"
+    alt=${props.item.name}
+    src=${props.item.image}
+  />`;
+  };
+  const setParty = () => {
+    if (props.item.name.includes("Rick")) {
+      setSlot("rickSlot");
+    }
+    if (props.item.name.includes("Morty")) {
+      setSlot("mortySlot");
+    }
+  };
   return (
     <Box
       sx={{
@@ -17,7 +36,7 @@ const Item: React.FC<any> = (props: any): null | any => {
         position: "relative",
       }}
       id={props.id}
-      // onClick={asd}
+      onClick={setParty}
     >
       <img
         width="120%"
@@ -26,7 +45,8 @@ const Item: React.FC<any> = (props: any): null | any => {
         src={props.item.image}
       />
       <Button
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           props.setBannedList([...props.bannedList, props.id]);
         }}
         sx={{

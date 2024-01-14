@@ -10,6 +10,7 @@ const RickSlot = () => {
         width: "180px",
         height: "220px",
         backgroundColor: "#DADADA",
+        overflow: "hidden",
         m: 2,
       }}
     >

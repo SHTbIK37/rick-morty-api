@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Box, TextField } from "@mui/material";
 import { ItemList } from "./ItemList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const FEED_QUERY = gql`
   query GetCharacters($name: String) {
@@ -19,15 +19,12 @@ const FEED_QUERY = gql`
 `;
 const Search = () => {
   const [bannedList, setBannedList] = useState<Array<string>>([]);
-  useEffect(() => {
-    console.log(bannedList);
-  }, [bannedList]);
   const { data, refetch } = useQuery(FEED_QUERY, { variables: { name: "" } });
   const handleChange = (event: any) => {
     const name = event.target.value;
     if (name.length > 2) refetch({ name: name });
   };
-  console.log(data);
+
   return (
     <Box>
       <TextField
