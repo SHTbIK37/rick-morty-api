@@ -1,6 +1,8 @@
 import { Box, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-const Item = ({ item }: any) => {
+import React from "react";
+
+const Item: React.FC<any> = (props: any): null | any => {
   return (
     <Box
       sx={{
@@ -14,9 +16,19 @@ const Item = ({ item }: any) => {
         overflow: "hidden",
         position: "relative",
       }}
+      id={props.id}
+      // onClick={asd}
     >
-      <img width="120%" height="100%" alt={item.name} src={item.image} />
+      <img
+        width="120%"
+        height="100%"
+        alt={props.item.name}
+        src={props.item.image}
+      />
       <Button
+        onClick={() => {
+          props.setBannedList([...props.bannedList, props.id]);
+        }}
         sx={{
           position: "absolute",
           m: 1,

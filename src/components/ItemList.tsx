@@ -1,15 +1,9 @@
 import { Box } from "@mui/material";
 import { Item } from "./Item";
-// const items = [
-//   { id: 1, name: "ivan", age: 21 },
-//   { id: 2, name: "ivan", age: 20 },
-//   { id: 3, name: "ivan", age: 19 },
-//   { id: 4, name: "ivan", age: 18 },
-//   { id: 5, name: "ivan", age: 17 },
-//   { id: 6, name: "ivan", age: 16 },
-// ];
-const ItemList = ({ items }: any) => {
-  console.log(items);
+import React from "react";
+
+const ItemList: React.FC<any> = (props: any) => {
+  console.log(props);
   return (
     <Box
       sx={{
@@ -20,10 +14,20 @@ const ItemList = ({ items }: any) => {
         "&>:nth-of-type(4n)": { marginRight: "0" },
         "&>:nth-of-type(4n+1)": { marginLeft: "0" },
       }}
+      id={"itemsList"}
     >
-      {items.map((item: any) => (
-        <Item key={item.id} item={item} />
-      ))}
+      {props.items.map((item: any) => {
+        if (!props.bannedList.includes(item.id))
+          return (
+            <Item
+              key={item.id}
+              item={item}
+              id={item.id}
+              bannedList={props.bannedList}
+              setBannedList={props.setBannedList}
+            />
+          );
+      })}
     </Box>
   );
 };
