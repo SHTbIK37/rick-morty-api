@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Box, TextField } from "@mui/material";
 import { ItemList } from "./ItemList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FEED_QUERY = gql`
   query GetCharacters($name: String) {
@@ -18,11 +18,27 @@ const FEED_QUERY = gql`
   }
 `;
 const Search = () => {
-  const [bannedList, setBannedList] = useState<Array<string>>([]);
+  // debounce
+  const [inputValue, setInputValue] = useState("");
   const { data, refetch } = useQuery(FEED_QUERY, { variables: { name: "" } });
+  useEffect(() => {
+    // Функция debounce
+    const debounceTimer = setTimeout(() => {
+      refetch({ name: inputValue });
+    }, 300); // Задержка в миллисекундах (в данном случае 500 мс)
+
+    // Очистка таймера при каждом изменении inputValue
+    return () => {
+      clearTimeout(debounceTimer);
+    };
+  }, [inputValue, refetch]);
+
+  const [bannedList, setBannedList] = useState<Array<string>>([]); // список блокированных карточек
+
   const handleChange = (event: any) => {
-    const name = event.target.value;
-    if (name.length > 2) refetch({ name: name });
+    setInputValue(event.target.value);
+    // const name = event.target.value;
+    // if (name.length > 2) refetch({ name: name });
   };
 
   return (

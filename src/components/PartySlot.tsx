@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 
-const MortySlot = () => {
+const PartySlot = (props: any) => {
   return (
     <Box
-      id="mortySlot"
+      id={props.id}
       sx={{
         justifyContent: "center",
         display: "flex",
@@ -21,9 +21,9 @@ const MortySlot = () => {
         color={"white"}
         variant="h5"
       >
-        MORTY
+        {props.name}
       </Typography>
     </Box>
   );
 };
-export { MortySlot };
+export { PartySlot };

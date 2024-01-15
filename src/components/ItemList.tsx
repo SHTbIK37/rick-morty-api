@@ -26,6 +26,7 @@ const ItemList: React.FC<any> = (props: any) => {
               setBannedList={props.setBannedList}
             />
           );
+        else return undefined;
       })}
     </Box>
   );

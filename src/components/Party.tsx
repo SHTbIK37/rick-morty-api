@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import { RickSlot } from "./RickSlot";
-import { MortySlot } from "./MortySlot";
+
+import { PartySlot } from "./PartySlot";
 
 const Party = () => {
   return (
@@ -9,8 +9,10 @@ const Party = () => {
         PARTY
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <RickSlot></RickSlot>
-        <MortySlot></MortySlot>
+        {/* <RickSlot></RickSlot>
+        <MortySlot></MortySlot> */}
+        <PartySlot id={"rickSlot"} name={"RICK"}></PartySlot>
+        <PartySlot id={"mortySlot"} name={"MORTY"}></PartySlot>
       </Box>
     </Box>
   );
