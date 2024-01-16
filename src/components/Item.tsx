@@ -1,11 +1,11 @@
 import { Box, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
+import { TItemProps } from "../types/types";
 
-const Item: React.FC<any> = (props: any): null | any => {
-  console.log(props.id, props.item.name);
-  const setSlot = (name: string) => {
-    const slot = document.getElementById(name);
+const Item: React.FC<TItemProps> = (props: TItemProps) => {
+  const setSlot = (name: string): void => {
+    const slot: HTMLElement | null = document.getElementById(name);
     if (slot)
       slot.innerHTML = `<img
     width="120%"

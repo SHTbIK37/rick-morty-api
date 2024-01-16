@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
 import { Item } from "./Item";
 import React from "react";
+import { TItem, TItemListProps } from "../types/types";
 
-const ItemList: React.FC<any> = (props: any) => {
+const ItemList: React.FC<TItemListProps> = (props: TItemListProps) => {
   return (
     <Box
       sx={{
@@ -15,7 +16,7 @@ const ItemList: React.FC<any> = (props: any) => {
       }}
       id={"itemsList"}
     >
-      {props.items.map((item: any) => {
+      {props.items.map((item: TItem) => {
         if (!props.bannedList.includes(item.id))
           return (
             <Item
