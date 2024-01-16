@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import type { FC } from "react";
 
 import { Item } from "../Item/index";

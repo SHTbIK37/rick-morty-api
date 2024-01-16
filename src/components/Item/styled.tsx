@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Box, Button } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 
 export const StyledItem = styled(Box)({
   width: "180px",
