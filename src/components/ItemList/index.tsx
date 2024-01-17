@@ -1,7 +1,8 @@
 import type { FC } from "react";
 
-import { Item } from "../Item/index";
-import { TItem, TItemListProps } from "../../types/types";
+import type { TItemListProps } from "./types";
+import type { TItem } from "../Item/types";
+import { Item } from "../Item";
 import { StyledItemList } from "./styled";
 
 const ItemList: FC<TItemListProps> = (props) => {
@@ -12,14 +13,12 @@ const ItemList: FC<TItemListProps> = (props) => {
           return (
             <Item
               key={item.id}
-              item={item}
-              id={item.id}
-              bannedList={props.bannedList}
-              setBannedList={props.setBannedList}
-              setParty={props.setParty}
+              {...item}
+              onDelete={props.handleDelete}
+              onClick={() => props.onSelect(item)}
             />
           );
-        else return undefined;
+        return null;
       })}
     </StyledItemList>
   );

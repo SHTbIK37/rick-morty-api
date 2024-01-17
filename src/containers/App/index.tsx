@@ -1,18 +1,19 @@
 import { useState, type FC } from "react";
 
-import { Search } from "../../containers/Search/index";
-import { Party } from "../Party/index";
+import { Search } from "../../containers/Search";
+import { Party } from "../../components/Party";
 import { TParty } from "../../types/types";
 import { StyledAppBox } from "./styled";
 
 const App: FC = () => {
   const [party, setParty] = useState<TParty>({
-    rick: { status: "nofilled", img: "", name: "RICK" },
-    morty: { status: "nofilled", img: "", name: "MORTY" },
+    rick: { img: "", name: "RICK" },
+    morty: { img: "", name: "MORTY" },
   });
+
   return (
     <StyledAppBox>
-      <Search setParty={setParty} party={party} />
+      <Search setParty={setParty} />
       <Party party={party} />
     </StyledAppBox>
   );

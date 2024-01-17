@@ -1,11 +1,13 @@
 import { useState, type ChangeEvent, FC } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { Box } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 
-import { ItemList } from "../../components/ItemList/index";
+import { ItemList } from "../../components/ItemList";
 import { debounce } from "../../utils/debounce";
-import { StyledTextField } from "./styled";
-import { TSearchProps } from "../../types/types";
+import { StyledTextField, StyledMainBox } from "./styled";
+import type { TSearchProps } from "./types";
+import type { TItem } from "../../components/Item/types";
+import type { TResponse } from "./types";
 
 const FEED_QUERY = gql`
   query GetCharacters($name: String) {
@@ -23,7 +25,7 @@ const FEED_QUERY = gql`
 `;
 
 export const Search: FC<TSearchProps> = (props) => {
-  const { data, refetch } = useQuery(FEED_QUERY);
+  const { data, loading, refetch } = useQuery<TResponse>(FEED_QUERY);
   const debouncedRefetch = debounce(refetch, 300);
 
   const [bannedList, setBannedList] = useState<Array<string>>([]); // список блокированных карточек
@@ -34,17 +36,38 @@ export const Search: FC<TSearchProps> = (props) => {
     if (name.length > 2) debouncedRefetch({ name });
   };
 
+  const handleItemClick = (item: TItem) => {
+    if (item.name.includes("Rick")) {
+      props.setParty((prevParty) => ({
+        ...prevParty,
+        rick: { img: item.image },
+      }));
+    }
+    if (item.name.includes("Morty")) {
+      props.setParty((prevParty) => ({
+        ...prevParty,
+        morty: { img: item.image },
+      }));
+    }
+  };
+  const handleDelete = (id: string): void => {
+    setBannedList((prevList) => [...prevList, id]);
+  };
   return (
-    <Box>
+    <StyledMainBox>
       <StyledTextField placeholder="RICK" onChange={handleChange} />
+      {loading && <CircularProgress />}
+      {!data?.characters.results.length && !loading && (
+        <Typography>Список пуст</Typography>
+      )}
       {data && (
         <ItemList
-          setParty={props.setParty}
+          onSelect={handleItemClick}
           bannedList={bannedList}
-          setBannedList={setBannedList}
+          handleDelete={handleDelete}
           items={data.characters.results}
-        ></ItemList>
+        />
       )}
-    </Box>
+    </StyledMainBox>
   );
 };

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
 export const StyledTextField = styled(TextField)({
   "& .MuiInputBase-root": {
@@ -11,4 +11,10 @@ export const StyledTextField = styled(TextField)({
   height: 80,
   id: "search",
   variant: "outlined",
+});
+export const StyledMainBox = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
 });

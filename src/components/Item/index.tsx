@@ -1,32 +1,19 @@
+import type { FC } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import React from "react";
 
+import { Img } from "../Img";
 import { StyledItem, StyledItemButton } from "./styled";
-import { TItemProps } from "../../types/types";
-import { Img } from "../Img/index";
 
-const Item: React.FC<TItemProps> = (props: TItemProps) => {
-  const setParty = () => {
-    if (props.item.name.includes("Rick")) {
-      props.setParty((prevParty) => ({
-        ...prevParty,
-        rick: { status: "fulfilled", img: props.item.image },
-      }));
-    }
-    if (props.item.name.includes("Morty")) {
-      props.setParty((prevParty) => ({
-        ...prevParty,
-        morty: { status: "fulfilled", img: props.item.image },
-      }));
-    }
-  };
+import type { TItemProps } from "./types";
+
+const Item: FC<TItemProps> = (props) => {
   return (
-    <StyledItem id={props.id} onClick={setParty}>
-      <Img status={props.item.name} src={props.item.image} />
+    <StyledItem onClick={props.onClick}>
+      <Img src={props.image} alt={props.name} />
       <StyledItemButton
         onClick={(event) => {
           event.stopPropagation();
-          props.setBannedList([...props.bannedList, props.id]);
+          props.onDelete(props.id);
         }}
       >
         <CloseIcon fontSize="small" />

@@ -3,7 +3,7 @@ import { ApolloProvider } from "@apollo/client";
 
 import { graphqlClient } from "./utils/api";
 
-import App from "./components/App/index";
+import App from "./containers/App";
 import "./index.css";
 
 const root = ReactDOM.createRoot(

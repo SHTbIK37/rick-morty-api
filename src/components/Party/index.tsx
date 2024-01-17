@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
 import { PartySlot } from "../PartySlot/index";
-import { TPartyProps } from "../../types/types";
+import type { TPartyProps } from "./types";
 import {
   StyledPartyBox,
   StyledPartyBoxItems,
